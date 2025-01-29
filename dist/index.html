@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saraha</title>
+    <!-- <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="/index.b2625c6b.css">
+    
+    <script defer="" src="/index.850bd9e5.js"></script>
+</head>
+<body>
+    <main class="validation-container">
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+          <form id="create-account__form" class="form" action="home.html" method="get">
+            <h1 class="form__title">Create Account</h1>
+            <!-- <span class="form__subtitle">or use your email for registration</span> -->
+            <input type="text" placeholder="username" id="username" minlength="4" maxlength="30" class="form__input" name="username" value="Thor">
+            <input name="email" class="form__input" type="email" placeholder="Email" id="email" value="thor@sayit.com">
+            <span class="password-container">
+              <input name="password" class="form__input" type="password" placeholder="Password" id="create-account-password" minlength="6" maxlength="30" value="123456Aa">
+              <i class="fa-solid fa-eye show-password"></i>
+            </span>
+            
+            <span class="password-container">
+              <input name="confirmPassword" class="form__input" type="password" placeholder="Confirm Password" id="confirm-password" minlength="6" maxlength="30" value="123456Aa">
+              <i class="fa-solid fa-eye show-password"></i>
+            </span>
+            <input name="phone" class="form__input" type="tel" placeholder="Phone Number" id="phone" minlength="11" maxlength="11" value="01277120963">
+          <div class="form__DB-box">
+          <label class="form__label DB-label" for="dateOfBirth">Date of Birth</label>
+          <input class="form__input DB-input" type="date" name="dateOfBirth" id="dateOfBirth" value="2010-07-22" min="1950-01-01" max="2018-12-31">
+        </div>
+          <div class="form__radio-inputs">
+            <label>
+                <input id="male" class="form__radio-input" type="radio" name="gender" value="male">
+                    <span class="form__radio-tile">
+                        <span class="form__radio-icon">
+                          <i class="gender-icon fa-solid fa-person"></i>
+                        </span>
+                        <span class="form__radio-label">Male</span>
+                    </span>
+            </label>
+            <label>
+                <input id="female" class="form__radio-input" type="radio" name="gender" value="female">
+                <span class="form__radio-tile">
+                    <span class="form__radio-icon">
+                      <i class="gender-icon fa-solid fa-person-dress"></i>
+                    </span>
+                    <span class="form__radio-label">Female</span>
+                </span>
+            </label>
+    </div>
+
+            <button class="form__button" type="submit">Sign Up</button>
+          </form>
+        </div>
+        <div class="form-container sign-in-container">
+          <form id="sign-in__form" class="form" action="home.html" method="get">
+            <h1 class="form__title">Sign in</h1>
+            <span class="form__subtitle">or use your account</span>
+            <input name="email" class="form__input" type="email" placeholder="Email">
+            <span class="password-container">
+              <input id="sign-in-password" name="password" class="form__input" type="password" placeholder="Password" minlength="6">
+              <i class="fa-solid fa-eye show-password-login"></i>
+            </span>
+            <a class="form__link" href="#">Forgot your password?</a>
+            <button class="form__button">Sign In</button>
+            
+          </form>
+        </div>
+        <div class="overlay-container">
+          <div class="overlay">
+            <div class="overlay-panel overlay-left">
+              <h1 class="form__title">Welcome Back!</h1>
+              <p class="form__subtitle">
+                To keep connected with us please login with your personal info
+              </p>
+              <button class="form__ghost-button form__button" id="signIn">Sign In</button>
+              <p class="form__message"></p>
+            </div>
+            <div class="overlay-panel overlay-right">
+              <h1 class="form__title">Hello, Friend!</h1>
+              <p class="form__subtitle">Enter your personal details and start journey with us</p>
+              <button class="form__ghost-button form__button" id="signUp">Sign Up</button>
+
+              <p class="form__message"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+</body>
+</html>
