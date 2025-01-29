@@ -17,8 +17,8 @@ class Form{
 // From validation
     initForm(){
         this.#initFormAnimations();
-        this.checkValidationLayerOne();
         this.checkValidationLayerTwo();
+        this.checkValidationLayerOne();
     }
 ///// SIGN IN Variables
 #signInUsername = document.getElementById("signInUsername");
@@ -44,20 +44,26 @@ class Form{
             this.#renderMessageSuccess("Sign up success");
         }
         else{
-            if(this.#username.value ===''|| this.#username.value === null || this.#username.value === undefined)
-            this.#renderMessageError("Check your Username, Cannot be empty");
-            if(this.#email.value ==='' || this.#email.value === null || this.#email.value === undefined)
-            this.#renderMessageError("Check your Email, Cannot be empty");
-            if(this.#CreateAccountpassword.value ==='' || this.#CreateAccountpassword.value === null || this.#CreateAccountpassword.value === undefined)
-            this.#renderMessageError("Check your Password, Cannot be empty");
-            if(this.#confirmPassword.value ==='' || this.#confirmPassword.value === null || this.#confirmPassword.value === undefined)
-            this.#renderMessageError("Check your Confirm Password, Cannot be empty");
-            if(this.#phone.value ==='' || this.#phone.value === null || this.#phone.value === undefined)
-            this.#renderMessageError("Check your Phone Number, Cannot be empty");
-            if(this.#dateOfBirth.value ==='' || this.#dateOfBirth.value === null || this.#dateOfBirth.value === undefined)
-            this.#renderMessageError("Check your Date of Birth, Cannot be empty");
+           
+
+
+
+
+
             if(this.#gender ==='' || this.#gender === null || this.#gender === undefined)
             this.#renderMessageError("Check your Gender");
+            if(this.#dateOfBirth.value ==='' || this.#dateOfBirth.value === null || this.#dateOfBirth.value === undefined)
+                this.#renderMessageError("Check your Date of Birth, Cannot be empty");
+            if(this.#phone.value ==='' || this.#phone.value === null || this.#phone.value === undefined)
+                this.#renderMessageError("Check your Phone Number, Cannot be empty");
+            if(this.#confirmPassword.value ==='' || this.#confirmPassword.value === null || this.#confirmPassword.value === undefined)
+                this.#renderMessageError("Check your Confirm Password, Cannot be empty");
+            if(this.#CreateAccountpassword.value ==='' || this.#CreateAccountpassword.value === null || this.#CreateAccountpassword.value === undefined)
+                this.#renderMessageError("Check your Password, Cannot be empty");
+            if(this.#email.value ==='' || this.#email.value === null || this.#email.value === undefined)
+                this.#renderMessageError("Check your Email, Cannot be empty");
+            if(this.#username.value ===''|| this.#username.value === null || this.#username.value === undefined)
+                this.#renderMessageError("Check your Username, Cannot be empty");
     }
         })
     }
