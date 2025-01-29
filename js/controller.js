@@ -14,6 +14,6 @@ const url = window.location.href;
 if(url.includes("?")){
     window.location.href = url.split("?")[0];
 }
-console.log(url);
+// console.log(url);
 
 //////////////////

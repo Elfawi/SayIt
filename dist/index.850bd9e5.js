@@ -598,8 +598,14 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"1GgH0":[function(require,module,exports,__globalThis) {
 var _formJs = require("./form.js");
 // if(document.forms.length === 2 && window.location.href !== "http://127.0.0.1:5500/home.html"){
-(0, _formJs.form).checkValidationLayerOne();
-(0, _formJs.form).checkValidationLayerTwo(); // }
+// form.checkValidationLayerOne();
+// form.checkValidationLayerTwo();
+// }
+if (document.forms.length === 2 && window.location.href !== "http://127.0.0.1:5500/home.html") (0, _formJs.form).initForm();
+//   Temporary solution
+const url = window.location.href;
+if (url.includes("?")) window.location.href = url.split("?")[0];
+console.log(url); //////////////////
 
 },{"./form.js":"4Q2oS"}],"4Q2oS":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -607,17 +613,21 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "form", ()=>form);
 var _userJs = require("./user.js");
 var _utilitiesJs = require("./utilities.js");
+var _gsapanimationsJs = require("./GSAPAnimations.js");
 //////// Form Animations
 let sender;
+let flagOne = false;
+let flagTwo = false;
 class Form {
     //////// Form Animations
     #signUpButton = document.getElementById("signUp");
     #signInButton = document.getElementById("signIn");
     #container = document.getElementById("container");
-    ///////////////////////////////
+    /////////////////////////////
     // From validation
-    constructor(){
+    initForm() {
         this.#initFormAnimations();
+        console.log(flagTwo);
     }
     ///// SIGN IN Variables
     #signInUsername = document.getElementById("signInUsername");
@@ -641,17 +651,19 @@ class Form {
             this.#gender = [
                 ...document.querySelectorAll('.form__radio-input[name="gender"]')
             ].map((gender)=>gender.checked ? gender.value : null).filter((gender)=>gender !== null)[0];
-            if (this.#username.value && this.#email.value && this.#CreateAccountpassword.value && this.#confirmPassword.value && this.#phone.value && this.#dateOfBirth.value && this.#gender) this.#renderMessageSuccess("Sign up success");
+            if (this.#username.value && this.#email.value && this.#CreateAccountpassword.value && this.#confirmPassword.value && this.#phone.value && this.#dateOfBirth.value && this.#gender) flagOne = true;
             else {
-                if (this.#username.value === '' || this.#username.value === null || this.#username.value === undefined) this.#renderMessageError("Check your Username, Cannot be empty");
-                if (this.#email.value === '' || this.#email.value === null || this.#email.value === undefined) this.#renderMessageError("Check your Email, Cannot be empty");
-                if (this.#CreateAccountpassword.value === '' || this.#CreateAccountpassword.value === null || this.#CreateAccountpassword.value === undefined) this.#renderMessageError("Check your Password, Cannot be empty");
-                if (this.#confirmPassword.value === '' || this.#confirmPassword.value === null || this.#confirmPassword.value === undefined) this.#renderMessageError("Check your Confirm Password, Cannot be empty");
-                if (this.#phone.value === '' || this.#phone.value === null || this.#phone.value === undefined) this.#renderMessageError("Check your Phone Number, Cannot be empty");
-                if (this.#dateOfBirth.value === '' || this.#dateOfBirth.value === null || this.#dateOfBirth.value === undefined) this.#renderMessageError("Check your Date of Birth, Cannot be empty");
                 if (this.#gender === '' || this.#gender === null || this.#gender === undefined) this.#renderMessageError("Check your Gender");
+                if (this.#dateOfBirth.value === '' || this.#dateOfBirth.value === null || this.#dateOfBirth.value === undefined) this.#renderMessageError("Check your Date of Birth, Cannot be empty");
+                if (this.#phone.value === '' || this.#phone.value === null || this.#phone.value === undefined) this.#renderMessageError("Check your Phone Number, Cannot be empty");
+                if (this.#confirmPassword.value === '' || this.#confirmPassword.value === null || this.#confirmPassword.value === undefined) this.#renderMessageError("Check your Confirm Password, Cannot be empty");
+                if (this.#CreateAccountpassword.value === '' || this.#CreateAccountpassword.value === null || this.#CreateAccountpassword.value === undefined) this.#renderMessageError("Check your Password, Cannot be empty");
+                if (this.#email.value === '' || this.#email.value === null || this.#email.value === undefined) this.#renderMessageError("Check your Email, Cannot be empty");
+                if (this.#username.value === '' || this.#username.value === null || this.#username.value === undefined) this.#renderMessageError("Check your Username, Cannot be empty");
+                flagOne = false;
             }
         });
+        return flagOne;
     }
     checkValidationLayerTwo() {
         let username;
@@ -659,43 +671,52 @@ class Form {
         let password;
         let confirmPassword;
         let phone;
-        console.log((0, _utilitiesJs.emailRegex).test(this.#email.value.trim()));
-        // let dateOfBirth =document.getElementById("dateOfBirth").value;
-        // let gender;
+        let dateOfBirth;
+        let gender;
+        this.checkValidationLayerOne();
         this.#createAccountForm.addEventListener("submit", (e)=>{
             e.preventDefault();
-            if (this.#username.value.trim().includes(" ")) this.#renderMessageError("Check your Username, Cannot contain spaces");
-            else username = this.#username.value.trim().toLowerCase();
-            if (!(0, _utilitiesJs.emailRegex).test(this.#email.value.trim())) this.#renderMessageError("Your email is not valid");
-            else email = this.#email.value.trim().toLowerCase();
-            if (!(0, _utilitiesJs.passwordRegex).test(this.#CreateAccountpassword.value)) this.#renderMessageError("Your password is not valid , it must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number");
-            if (this.#CreateAccountpassword.value !== this.#confirmPassword.value) this.#renderMessageError("Passwords do not match");
-            else password = confirmPassword = this.#CreateAccountpassword.value;
-            if (!(0, _utilitiesJs.phoneRegex).test(this.#phone.value.trim())) this.#renderMessageError("Your phone number is not valid");
-            else phone = this.#phone.value.trim();
-            if (username && email && password && confirmPassword && phone && dateOfBirth.value && this.#gender) {
-                sender = new (0, _userJs.User)(username, email, password, confirmPassword, phone, this.#dateOfBirth.value, this.#gender);
+            dateOfBirth = this.#dateOfBirth.value;
+            gender = this.#gender;
+            if (this.checkValidationLayerOne()) {
+                flagTwo = false;
+                if (this.#username.value.trim().includes(" ")) this.#renderMessageError("Check your Username, Cannot contain spaces");
+                else username = this.#username.value.trim().toLowerCase();
+                if (!(0, _utilitiesJs.emailRegex).test(this.#email.value.trim())) this.#renderMessageError("Your email is not valid");
+                else email = this.#email.value.trim().toLowerCase();
+                if (!(0, _utilitiesJs.passwordRegex).test(this.#CreateAccountpassword.value)) this.#renderMessageError("Your password is not valid , it must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number");
+                if (this.#CreateAccountpassword.value !== this.#confirmPassword.value) this.#renderMessageError("Passwords do not match");
+                else password = confirmPassword = this.#CreateAccountpassword.value;
+                if (!(0, _utilitiesJs.phoneRegex).test(this.#phone.value.trim())) this.#renderMessageError("Your phone number is not valid");
+                else phone = this.#phone.value.trim();
+                sender = new (0, _userJs.User)(username, email, password, confirmPassword, phone, dateOfBirth, gender);
                 console.log(sender.getUserData());
-                console.log(window.location.href);
-                console.log(e.target.action);
-                window.location.href = e.target.action;
+            // if(username && email && password && confirmPassword && phone && dateOfBirth && gender){
+            //         flagTwo = true;
+            //         sender = new User(username,email,password,confirmPassword,phone,dateOfBirth,gender);
+            //         console.log(sender.getUserData());
+            //         this.#renderMessageSuccess("Account Created Successfuly");
+            //         // setTimeout(() => {
+            //         //     e.target.submit();
+            //         // }, 2000);
+            //         }
             }
         });
+        return flagTwo;
     }
     #showPassword() {
-        const showIconSignUp = document.querySelectorAll(".show-password");
+        const showIconSignUp = document.querySelector(".show-password");
         const showIconLogin = document.querySelector(".show-password-login");
-        showIconSignUp.forEach((icon)=>{
-            icon.addEventListener("click", ()=>{
-                (0, _utilitiesJs.togglePasswordVisibility)(icon);
-                if (this.#CreateAccountpassword.type === "password") {
-                    this.#CreateAccountpassword.type = "text";
-                    this.#confirmPassword.type = "text";
-                } else {
-                    this.#CreateAccountpassword.type = "password";
-                    this.#confirmPassword.type = "password";
-                }
-            });
+        const showConfirmPassword = document.querySelector(".show-confirm-password");
+        showIconSignUp.addEventListener("click", ()=>{
+            (0, _utilitiesJs.togglePasswordVisibility)(showIconSignUp);
+            if (this.#CreateAccountpassword.type === "password") this.#CreateAccountpassword.type = "text";
+            else this.#CreateAccountpassword.type = "password";
+        });
+        showConfirmPassword.addEventListener("click", ()=>{
+            (0, _utilitiesJs.togglePasswordVisibility)(showConfirmPassword);
+            if (this.#confirmPassword.type === "password") this.#confirmPassword.type = "text";
+            else this.#confirmPassword.type = "password";
         });
         showIconLogin.addEventListener("click", ()=>{
             (0, _utilitiesJs.togglePasswordVisibility)(showIconLogin);
@@ -706,16 +727,25 @@ class Form {
     #initFormAnimations() {
         this.#signUpButton.addEventListener("click", ()=>{
             container.classList.add("right-panel-active");
+            (0, _gsapanimationsJs.animateFormTitle)(".form__title-sign-up", 0.3);
+            (0, _gsapanimationsJs.animateFormTitle)(".overlay-title-right", 0.3);
         });
         this.#signInButton.addEventListener("click", ()=>{
             container.classList.remove("right-panel-active");
+            (0, _gsapanimationsJs.animateFormTitle)(".form__title-login", 0);
+            (0, _gsapanimationsJs.animateFormTitle)(".overlay-title-left", 0);
+            (0, _gsapanimationsJs.fadeUp)(".overlay-subtitle-left");
         });
         this.#showPassword();
+        (0, _gsapanimationsJs.animateFormContainer)(this.#container);
+        (0, _gsapanimationsJs.animateFormTitle)(".form__title-login");
+        (0, _gsapanimationsJs.animateFormTitle)(".overlay-title-left");
+        (0, _gsapanimationsJs.fadeUp)(".overlay-subtitle-left", '<50%');
     }
-    /////////////////// SIGN UP END   => Create Account /////////////////////
+    /////////////////// SIGN UP END   => Create Account //////////////////---
     #renderMessageError(message) {
         this.#message.style.display = "block";
-        this.#message.textContent = message;
+        this.#message.textContent = `*${message}`;
         this.#message.classList.remove("form__message-success");
         this.#message.classList.add("form__message-error");
     }
@@ -726,9 +756,9 @@ class Form {
         this.#message.classList.add("form__message-success");
     }
 }
-const form = new Form(); // console.log(user.getUserData());
+const form = new Form(); // console.log(sender.getUserData());
 
-},{"./user.js":"3QxmH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./utilities.js":"f4wib"}],"3QxmH":[function(require,module,exports,__globalThis) {
+},{"./user.js":"3QxmH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./utilities.js":"f4wib","./GSAPAnimations.js":"jR4Ce"}],"3QxmH":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "User", ()=>User) // export const user = new User();
@@ -820,6 +850,64 @@ const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 function togglePasswordVisibility(icon) {
     icon.classList.toggle("fa-eye-slash");
     icon.classList.toggle("fa-eye");
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jR4Ce":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "fadeUp", ()=>fadeUp);
+parcelHelpers.export(exports, "animateFormTitle", ()=>animateFormTitle);
+parcelHelpers.export(exports, "animateFormContainer", ()=>animateFormContainer);
+const tl = gsap.timeline({
+    defaults: {
+        duration: 0.5,
+        ease: "power3.out"
+    }
+});
+function fadeUp(text, sync = null) {
+    tl.fromTo(text, {
+        y: "100%",
+        opacity: 0
+    }, {
+        y: 0,
+        opacity: 1
+    }, sync);
+}
+function animateFormTitle(title, delay = 0.5, sync = null) {
+    const text = document.querySelector(title);
+    const letters = Array.from(text.textContent);
+    // console.log(letters);
+    text.textContent = "";
+    letters.forEach((letter)=>{
+        text.innerHTML += `<span class="letter">${letter}</span>`;
+    });
+    gsap.set(".letter", {
+        display: "inline-block"
+    });
+    gsap.fromTo(".letter", {
+        y: "100%",
+        opacity: 0
+    }, {
+        y: 0,
+        opacity: 1,
+        delay: delay,
+        stagger: 0.05,
+        ease: "back.out(3)"
+    }, sync);
+}
+function animateFormContainer(formContainer) {
+    tl.fromTo(formContainer, {
+        scale: 1.5,
+        opacity: 0,
+        borderRadius: 0
+    }, {
+        scale: 1,
+        opacity: 1,
+        borderRadius: "2rem",
+        delay: 0.35,
+        duration: 2.5,
+        ease: "elastic.out(1.5, 1)"
+    });
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["4nnrR","1GgH0"], "1GgH0", "parcelRequire94c2")

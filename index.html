@@ -28,9 +28,9 @@
               maxlength="30"
               class="form__input"
               name="username"
-              
+              value="thor"
             />
-            <input name="email" class="form__input" type="email" placeholder="Email" id="email" />
+            <input name="email" class="form__input" type="email" placeholder="Email" id="email" value="thor@gmail.com" />
             <span class="password-container">
               <input
               name="password"
@@ -40,7 +40,7 @@
                 id="create-account-password"
                 minlength="6"
                 maxlength="30"
-                
+                value="123456Aa"
               />
               <i class="fa-solid fa-eye show-password"></i>
             </span>
@@ -54,7 +54,7 @@
                 id="confirm-password"
                 minlength="6"
                 maxlength="30"
-              
+                value="123456Aa"
               />
               <i class="fa-solid fa-eye show-confirm-password"></i>
             </span>
@@ -66,11 +66,11 @@
             id="phone"
             minlength="11"
             maxlength="11"
-          
+            value="01277120963"
           />
           <div class="form__DB-box">
           <label class="form__label DB-label" for="dateOfBirth">Date of Birth</label>
-          <input class="form__input DB-input" type="date" name="dateOfBirth" id="dateOfBirth" min="1950-01-01" max="2018-12-31">
+          <input class="form__input DB-input" type="date" name="dateOfBirth" id="dateOfBirth" min="1950-01-01" max="2018-12-31" value="2000-01-01">
         </div>
           <div class="form__radio-inputs">
             <label>
@@ -92,7 +92,6 @@
                 </span>
             </label>
     </div>
-
             <button class="form__button" type="submit">Sign Up</button>
           </form>
         </div>
@@ -100,7 +99,7 @@
           <form id="sign-in__form" class="form" action="home.html" method="get">
             <h1 class="form__title form__title-login">Sign in</h1>
             <span class="form__subtitle">or use your account</span>
-            <input name="email" class="form__input" type="email" placeholder="Email" />
+            <input name="email" class="form__input" type="email" placeholder="Email" id="sign-in-email" />
             <span class="password-container">
               <input id="sign-in-password" name="password" class="form__input" type="password" placeholder="Password" minlength="6" />
               <i class="fa-solid fa-eye show-password-login"></i>
@@ -113,19 +112,19 @@
         <div class="overlay-container">
           <div class="overlay">
             <div class="overlay-panel overlay-left">
-              <h1 class="form__title overlay-title-right">Welcome Back!</h1>
-              <p class="form__subtitle overlay-subtitle-right">
+              <h1 class="form__title overlay-title-left">Welcome Back!</h1>
+              <p class="form__subtitle overlay-subtitle-left">
                 To keep connected with us please login with your personal info
               </p>
               <button class="form__ghost-button form__button" id="signIn">Sign In</button>
-              <p class="form__message"></p>
+              <p class="form__message message__sign-up"></p>
             </div>
             <div class="overlay-panel overlay-right">
-              <h1 class="form__title overlay-title-left">Hello, Friend!</h1>
-              <p class="form__subtitle overlay-subtitle-left">Enter your personal details and start journey with us</p>
+              <h1 class="form__title overlay-title-right">Hello, Friend!</h1>
+              <p class="form__subtitle overlay-subtitle-right">Enter your personal details and start journey with us</p>
               <button class="form__ghost-button form__button" id="signUp">Sign Up</button>
 
-              <p class="form__message"></p>
+              <p class="form__message message__sign-in"></p>
             </div>
           </div>
         </div>

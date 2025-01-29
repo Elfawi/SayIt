@@ -7,24 +7,28 @@ import { animateFormContainer , animateFormTitle , fadeUp} from "./GSAPAnimation
 
 
 let sender;
+let flagOne = false;
+let flagTwo = false;
 
 class Form{
 //////// Form Animations
 #signUpButton = document.getElementById("signUp");
 #signInButton = document.getElementById("signIn");
 #container = document.getElementById("container");
-///////////////////////////////
+/////////////////////////////
 // From validation
     initForm(){
         this.#initFormAnimations();
+        this.LoginValidation();
         this.checkValidationLayerTwo();
-        this.checkValidationLayerOne();
     }
 ///// SIGN IN Variables
-#signInUsername = document.getElementById("signInUsername");
+#signInEmail = document.getElementById("sign-in-email");
 #password = document.getElementById("sign-in-password");
 ///// SIGN IN END Variables
-#message = document.querySelector(".form__message");
+#messageSignUp = document.querySelector(".message__sign-up");
+#messageSignIn = document.querySelector(".message__sign-in");
+
 //// SIGN UP  => Create Account
 #createAccountForm = document.getElementById("create-account__form");
 #signInForm = document.getElementById("sign-in__form");
@@ -41,71 +45,87 @@ class Form{
         e.preventDefault();
         this.#gender = [...document.querySelectorAll('.form__radio-input[name="gender"]')].map(gender => gender.checked ? gender.value : null) .filter(gender => gender !== null)[0];
         if(this.#username.value && this.#email.value && this.#CreateAccountpassword.value && this.#confirmPassword.value && this.#phone.value && this.#dateOfBirth.value && this.#gender){
-            this.#renderMessageSuccess("Sign up success");
+        flagOne = true;
         }
         else{
-           
-
-
-
-
-
             if(this.#gender ==='' || this.#gender === null || this.#gender === undefined)
-            this.#renderMessageError("Check your Gender");
+            this.#renderMessageError(this.#messageSignUp,"Check your Gender");
             if(this.#dateOfBirth.value ==='' || this.#dateOfBirth.value === null || this.#dateOfBirth.value === undefined)
-                this.#renderMessageError("Check your Date of Birth, Cannot be empty");
+                this.#renderMessageError(this.#messageSignUp,"Check your Date of Birth, Cannot be empty");
             if(this.#phone.value ==='' || this.#phone.value === null || this.#phone.value === undefined)
-                this.#renderMessageError("Check your Phone Number, Cannot be empty");
+                this.#renderMessageError(this.#messageSignUp,"Check your Phone Number, Cannot be empty");
             if(this.#confirmPassword.value ==='' || this.#confirmPassword.value === null || this.#confirmPassword.value === undefined)
-                this.#renderMessageError("Check your Confirm Password, Cannot be empty");
+                this.#renderMessageError(this.#messageSignUp,"Check your Confirm Password, Cannot be empty");
             if(this.#CreateAccountpassword.value ==='' || this.#CreateAccountpassword.value === null || this.#CreateAccountpassword.value === undefined)
-                this.#renderMessageError("Check your Password, Cannot be empty");
+                this.#renderMessageError(this.#messageSignUp,"Check your Password, Cannot be empty");
             if(this.#email.value ==='' || this.#email.value === null || this.#email.value === undefined)
-                this.#renderMessageError("Check your Email, Cannot be empty");
+                this.#renderMessageError(this.#messageSignUp,"Check your Email, Cannot be empty");
             if(this.#username.value ===''|| this.#username.value === null || this.#username.value === undefined)
-                this.#renderMessageError("Check your Username, Cannot be empty");
+                this.#renderMessageError(this.#messageSignUp,"Check your Username, Cannot be empty");
+            flagOne = false;
+        }
+        })
+        return flagOne;
     }
+    LoginValidation(){
+
+        this.#signInForm.addEventListener('submit',(e)=>{
+            e.preventDefault()
+            // this.#renderMessageSuccess(this.#messageSignIn,'Logged in successfuly');
+            if(!emailRegex.test(this.#signInEmail.value))
+                this.#renderMessageError(this.#messageSignIn,"Your email is not valid");
+            if(!passwordRegex.test(this.#password.value))
+                this.#renderMessageError(this.#messageSignIn,"Your password is not Correct");
+            if(emailRegex.test(this.#signInEmail.value) && passwordRegex.test(this.#password.value)){
+                this.#renderMessageSuccess(this.#messageSignIn,'Logged in successfuly');
+            }
         })
     }
+    checkValidationLayerTwo(){ 
 
-    checkValidationLayerTwo(){       
-            let username;
-            let email;
-            let password;
-            let confirmPassword;
-            let phone;
-            console.log(emailRegex.test(this.#email.value.trim()));
-            // let dateOfBirth =document.getElementById("dateOfBirth").value;
-            // let gender;
+            this.checkValidationLayerOne();
             this.#createAccountForm.addEventListener("submit", (e)=>{
                 e.preventDefault();
-                if(this.#username.value.trim().includes(" "))
-                    this.#renderMessageError("Check your Username, Cannot contain spaces");
-                else username = this.#username.value.trim().toLowerCase();
-                
-                if(!emailRegex.test(this.#email.value.trim()))
-                    this.#renderMessageError("Your email is not valid"); 
-                else email = this.#email.value.trim().toLowerCase();
-                
-                if(!passwordRegex.test(this.#CreateAccountpassword.value))
-                    this.#renderMessageError("Your password is not valid , it must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number");
-                if(this.#CreateAccountpassword.value !== this.#confirmPassword.value)
-                    this.#renderMessageError("Passwords do not match");
-                else password = confirmPassword = this.#CreateAccountpassword.value;
-                
-                if(!phoneRegex.test(this.#phone.value.trim()))
-                    this.#renderMessageError("Your phone number is not valid");
-                else phone = this.#phone.value.trim();
-                if(username && email && password && confirmPassword && phone && dateOfBirth.value && this.#gender){
-                    sender = new User(username,email,password,confirmPassword,phone,this.#dateOfBirth.value,this.#gender);
-                    console.log(sender.getUserData());
-                    setTimeout(() => {
-                        e.target.submit();
-                    }, 2000);
-                }
-                    })
-                
-    }
+                let username;
+                let email;
+                let password;
+                let confirmPassword;
+                let phone;
+                let dateOfBirth;
+                let gender;
+                dateOfBirth =this.#dateOfBirth.value;
+                gender = this.#gender;
+                if(this.checkValidationLayerOne()){
+                    flagTwo = false;
+                    if(this.#username.value.trim().includes(" "))
+                        this.#renderMessageError(this.#messageSignUp,"Check your Username, Cannot contain spaces");
+                    else username = this.#username.value.trim().toLowerCase();
+                    if(!emailRegex.test(this.#email.value.trim()))
+                        this.#renderMessageError(this.#messageSignUp,"Your email is not valid"); 
+                    else email = this.#email.value.trim().toLowerCase();
+                    if(!passwordRegex.test(this.#CreateAccountpassword.value))
+                        this.#renderMessageError(this.#messageSignUp,"Your password is not valid , it must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number");
+                    if(this.#CreateAccountpassword.value !== this.#confirmPassword.value)
+                        this.#renderMessageError(this.#messageSignUp,"Passwords do not match");
+                    else password = confirmPassword = this.#CreateAccountpassword.value;
+                    if(!phoneRegex.test(this.#phone.value.trim()))
+                        this.#renderMessageError(this.#messageSignUp,"Your phone number is not valid");
+                    else phone = this.#phone.value.trim();
+                    if(username && email && password && confirmPassword && phone && dateOfBirth && gender){
+                            flagTwo = true;
+                            sender = new User(username,email,password,confirmPassword,phone,dateOfBirth,gender);
+                            console.log(sender.getUserData());
+                            this.#renderMessageSuccess(this.#messageSignUp,"Account Created Successfuly");
+                            setTimeout(() => {
+                                e.target.submit();
+                            }, 2000);
+                            }
+                        }
+                        
+                    }
+                )
+                return flagTwo;
+}
     #showPassword(){
         const showIconSignUp = document.querySelector(".show-password");
         const showIconLogin = document.querySelector(".show-password-login");
@@ -143,41 +163,46 @@ class Form{
 #initFormAnimations() {
     this.#signUpButton.addEventListener("click", () => {
     container.classList.add("right-panel-active");
-    animateFormTitle(".form__title-sign-up",0.3);
-    animateFormTitle(".overlay-title-right",0.3);
+    animateFormTitle(".form__title-sign-up",0.1);
+    animateFormTitle(".overlay-title-left",0.1);
+    fadeUp(".overlay-subtitle-left");
+    this.#clearMessages();
 
     });
     this.#signInButton.addEventListener("click", () => {
         container.classList.remove("right-panel-active");
         animateFormTitle(".form__title-login",0);
-    animateFormTitle(".overlay-title-left",0 );
-    fadeUp(".overlay-subtitle-left");
-
+        animateFormTitle(".overlay-title-right",0);
+        fadeUp(".overlay-subtitle-right");
+        this.#clearMessages();
         });
         this.#showPassword();
         animateFormContainer(this.#container);
         animateFormTitle(".form__title-login");
-        animateFormTitle(".overlay-title-left");
-        fadeUp(".overlay-subtitle-left",'<50%');
+        animateFormTitle(".overlay-title-right");
+        fadeUp(".overlay-subtitle-right",'<50%');
 
     }
     /////////////////// SIGN UP END   => Create Account //////////////////---
-    #renderMessageError(message) {
-        this.#message.style.display = "block";
-        this.#message.textContent = `*${message}`;
-        this.#message.classList.remove("form__message-success");
-        this.#message.classList.add("form__message-error");
+    #renderMessageError(messageEl,message) {
+        messageEl.style.display = "block";
+        messageEl.textContent = `*${message}`;
+        messageEl.classList.remove("form__message-success");
+        messageEl.classList.add("form__message-error");
     }
-    #renderMessageSuccess(message) {
-        this.#message.style.display = "block";
-        this.#message.textContent = message;
-        this.#message.classList.remove("form__message-error");
-        this.#message.classList.add("form__message-success");
+    #renderMessageSuccess(messageEl,message) {
+        messageEl.style.display = "block";
+        messageEl.textContent = message;
+        messageEl.classList.remove("form__message-error");
+        messageEl.classList.add("form__message-success");
+    }
+    #clearMessages(){
+        this.#messageSignIn.style.display = "none";
+        this.#messageSignUp.style.display = "none";
     }
 
 }
 
 // From animations end
 export const form = new Form();
-
 // console.log(sender.getUserData());

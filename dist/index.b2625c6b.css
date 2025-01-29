@@ -4,7 +4,7 @@
   --color-primary-light: #80cbc4;
   --color-primary-dark: #00897b;
   --color-grey-light-1: #faf9f9;
-  --color-grey-light-2: #f4f2f2;
+  --color-grey-light-2: #f7f7f7;
   --color-grey-light-3: #f0eeee;
   --color-grey-light-4: #ccc;
   --color-grey-dark-1: #333;
@@ -16,17 +16,13 @@
   --color-success: #4caf50;
 }
 
-* {
+*, :before, :after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-*, :before, :after {
-  box-sizing: inherit;
-}
-
 html {
-  box-sizing: border-box;
   font-size: 62.5%;
 }
 
@@ -90,7 +86,7 @@ body {
 }
 
 .form__input {
-  background-color: #eee;
+  background-color: var(--color-grey-light-3);
   border: none;
   border-bottom: 3px solid #0000;
   width: 100%;
@@ -237,8 +233,8 @@ body {
 }
 
 .form__radio-tile {
+  background-color: var(--color-grey-light-1);
   cursor: pointer;
-  background-color: #fff;
   border: 2px solid #b5bfd9;
   border-radius: .4rem;
   flex-direction: column;
@@ -258,8 +254,8 @@ body {
   background-color: #fff;
   border: 2px solid #b5bfd9;
   border-radius: 50%;
-  width: 1rem;
-  height: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
   transition: all .25s;
   display: block;
   position: absolute;
@@ -278,7 +274,7 @@ body {
 }
 
 .form__radio-icon .gender-icon {
-  font-size: 2.4rem;
+  font-size: 2.8rem;
 }
 
 .form__radio-label {
@@ -325,14 +321,32 @@ body {
   box-shadow: 0 1.4rem 2.8rem #00000026;
 }
 
+@media screen and (width <= 37.5em) {
+  .container {
+    overflow: visible;
+  }
+}
+
 .sign-in-container {
   z-index: 2;
   width: 50%;
   left: 0;
 }
 
+@media screen and (width <= 37.5em) {
+  .sign-in-container {
+    width: 100%;
+  }
+}
+
 .container.right-panel-active .sign-in-container {
   transform: translateX(100%);
+}
+
+@media screen and (width <= 37.5em) {
+  .container.right-panel-active .sign-in-container {
+    transform: translateX(0)translateY(0);
+  }
 }
 
 .sign-up-container {
@@ -342,11 +356,23 @@ body {
   left: 0;
 }
 
+@media screen and (width <= 37.5em) {
+  .sign-up-container {
+    width: 100%;
+  }
+}
+
 .container.right-panel-active .sign-up-container {
   opacity: 1;
   z-index: 5;
   animation: .6s show;
   transform: translateX(100%);
+}
+
+@media screen and (width <= 37.5em) {
+  .container.right-panel-active .sign-up-container {
+    transform: translateX(0)translateY(100%);
+  }
 }
 
 @keyframes show {
@@ -372,8 +398,22 @@ body {
   overflow: hidden;
 }
 
+@media screen and (width <= 37.5em) {
+  .overlay-container {
+    width: 100%;
+    left: 0;
+    overflow: visible;
+  }
+}
+
 .container.right-panel-active .overlay-container {
   transform: translateX(-100%);
+}
+
+@media screen and (width <= 37.5em) {
+  .container.right-panel-active .overlay-container {
+    transform: translateX(0)translateY(-100%);
+  }
 }
 
 .overlay {
@@ -390,8 +430,22 @@ body {
   transform: translateX(0);
 }
 
+@media screen and (width <= 37.5em) {
+  .overlay {
+    width: 100%;
+    top: 100%;
+    left: 0;
+  }
+}
+
 .container.right-panel-active .overlay {
   transform: translateX(50%);
+}
+
+@media screen and (width <= 37.5em) {
+  .container.right-panel-active .overlay {
+    transform: translateX(0)translateY(100%);
+  }
 }
 
 .overlay-panel {
@@ -409,12 +463,30 @@ body {
   transform: translateX(0);
 }
 
+@media screen and (width <= 37.5em) {
+  .overlay-panel {
+    width: 100%;
+  }
+}
+
 .overlay-left {
   transform: translateX(-20%);
 }
 
+@media screen and (width <= 37.5em) {
+  .overlay-left {
+    transform: translateX(0)translateY(0);
+  }
+}
+
 .container.right-panel-active .overlay-left {
   transform: translateX(0);
+}
+
+@media screen and (width <= 37.5em) {
+  .container.right-panel-active .overlay-left {
+    transform: translateX(0)translateY(100%);
+  }
 }
 
 .overlay-right {
@@ -422,8 +494,20 @@ body {
   transform: translateX(0);
 }
 
+@media screen and (width <= 37.5em) {
+  .overlay-right {
+    transform: translateX(0)translateY(0);
+  }
+}
+
 .container.right-panel-active .overlay-right {
-  transform: translateX(20%);
+  transform: translateX(0);
+}
+
+@media screen and (width <= 37.5em) {
+  .container.right-panel-active .overlay-right {
+    transform: translateX(0)translateY(100%);
+  }
 }
 
 .password-container {
@@ -431,7 +515,7 @@ body {
   position: relative;
 }
 
-.show-password {
+.show-password, .show-password-login, .show-confirm-password {
   cursor: pointer;
   color: var(--color-grey-dark-1);
   font-size: 1.5rem;
@@ -441,21 +525,11 @@ body {
   transform: translateY(-50%);
 }
 
-.show-password:hover {
+.show-password:hover, .show-password-login:hover, .show-confirm-password:hover {
   color: var(--color-primary-dark);
 }
 
-.show-password-login {
-  cursor: pointer;
-  color: var(--color-grey-dark-1);
-  font-size: 1.5rem;
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  transform: translateY(-50%);
-}
-
-.show-password-login:hover {
-  color: var(--color-primary-dark);
+.test {
+  font-size: 6rem;
 }
 /*# sourceMappingURL=index.b2625c6b.css.map */
