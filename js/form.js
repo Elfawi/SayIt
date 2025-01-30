@@ -71,11 +71,15 @@ class Form{
 
         this.#signInForm.addEventListener('submit',(e)=>{
             e.preventDefault()
-            // this.#renderMessageSuccess(this.#messageSignIn,'Logged in successfuly');
-            if(!emailRegex.test(this.#signInEmail.value))
-                this.#renderMessageError(this.#messageSignIn,"Your email is not valid");
+           
             if(!passwordRegex.test(this.#password.value))
                 this.#renderMessageError(this.#messageSignIn,"Your password is not Correct");
+            if(!emailRegex.test(this.#signInEmail.value))
+                this.#renderMessageError(this.#messageSignIn,"Your email is not valid");
+            if(this.#password.value === '' || this.#password.value === null || this.#password.value === undefined)
+                this.#renderMessageError(this.#messageSignIn,"Check your Password, Cannot be empty");
+            if(this.#signInEmail.value === '' || this.#signInEmail.value === null || this.#signInEmail.value === undefined)
+                this.#renderMessageError(this.#messageSignIn,"Check your Email, Cannot be empty");
             if(emailRegex.test(this.#signInEmail.value) && passwordRegex.test(this.#password.value)){
                 this.#renderMessageSuccess(this.#messageSignIn,'Logged in successfuly');
             }
@@ -163,25 +167,24 @@ class Form{
 #initFormAnimations() {
     this.#signUpButton.addEventListener("click", () => {
     container.classList.add("right-panel-active");
-    animateFormTitle(".form__title-sign-up",0.1);
-    animateFormTitle(".overlay-title-left",0.1);
-    fadeUp(".overlay-subtitle-left");
+    animateFormTitle(".form__title-sign-up",0);
+    animateFormTitle(".overlay-title-left",0);
+    fadeUp(".overlay-subtitle-left",1,'<20%');
     this.#clearMessages();
 
     });
     this.#signInButton.addEventListener("click", () => {
         container.classList.remove("right-panel-active");
         animateFormTitle(".form__title-login",0);
-        animateFormTitle(".overlay-title-right",0);
-        fadeUp(".overlay-subtitle-right");
+        animateFormTitle(".overlay-title-right",0,'<');
+        fadeUp(".overlay-subtitle-right",1.5,'<20%');
         this.#clearMessages();
         });
         this.#showPassword();
         animateFormContainer(this.#container);
-        animateFormTitle(".form__title-login");
-        animateFormTitle(".overlay-title-right");
-        fadeUp(".overlay-subtitle-right",'<50%');
-
+        animateFormTitle(".form__title-login",0.75);
+        animateFormTitle(".overlay-title-right",0.75);
+        fadeUp(".overlay-subtitle-right",0.7,'<');
     }
     /////////////////// SIGN UP END   => Create Account //////////////////---
     #renderMessageError(messageEl,message) {

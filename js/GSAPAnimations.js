@@ -2,11 +2,11 @@ const tl = gsap.timeline({ defaults: { duration: 0.5, ease: "power3.out" } });
 
 
 
-export function fadeUp(text, sync = null){
-    tl.fromTo(text, { y: "100%", opacity: 0 }, { y: 0, opacity: 1 }, sync);
+export function fadeUp(text, delay = 0,sync = null){
+    tl.fromTo(text, { y: "100%", opacity: 0 }, { y: 0, opacity: 1 ,delay: delay}, sync);
 }
 
-export function animateFormTitle(title ,delay = 0.5,sync = null){
+export function animateFormTitle(title ,delay = 0,sync = null){
     const text = document.querySelector(title);
 const letters = Array.from(text.textContent);
 // console.log(letters);
@@ -27,7 +27,7 @@ export function animateFormContainer(formContainer){
         formContainer,
         { scale: 1.5, opacity: 0, borderRadius: 0 },
         {
-          scale: 1,
+          scale: 0.9,
           opacity: 1,
           borderRadius: "2rem",
           delay: 0.35,
