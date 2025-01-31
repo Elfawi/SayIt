@@ -2,7 +2,7 @@
 import { User } from "./user.js";
 import { togglePasswordVisibility } from "./utilities.js";
 import { emailRegex, phoneRegex, passwordRegex } from "./utilities.js";
-import { animateFormContainer , animateFormTitle , fadeUp} from "./GSAPAnimations.js";
+import { animateFormContainer , animateFormTitle , fadeUp , colorize} from "./GSAPAnimations.js";
 //////// Form Animations
 
 
@@ -165,6 +165,15 @@ class Form{
         })
     }
 #initFormAnimations() {
+    /// Form Validation Color
+    colorize(this.#username);
+    colorize(this.#signInEmail);
+    colorize(this.#email);
+    colorize(this.#phone);
+    colorize(this.#password);
+    colorize(this.#CreateAccountpassword);
+    colorize(this.#confirmPassword);
+   ////////////////////////////////
     this.#signUpButton.addEventListener("click", () => {
     container.classList.add("right-panel-active");
     animateFormTitle(".form__title-sign-up",0);

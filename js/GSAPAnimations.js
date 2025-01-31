@@ -1,6 +1,6 @@
+import {nameRegex, emailRegex, phoneRegex, passwordRegex } from "./utilities.js";
+
 const tl = gsap.timeline({ defaults: { duration: 0.5, ease: "power3.out" } });
-
-
 
 export function fadeUp(text, delay = 0,sync = null){
     tl.fromTo(text, { y: "100%", opacity: 0 }, { y: 0, opacity: 1 ,delay: delay}, sync);
@@ -35,4 +35,45 @@ export function animateFormContainer(formContainer){
           ease: "elastic.out(1.5, 1)",
         }
       );
+}
+
+export function colorize(input){
+input.addEventListener("input", (e) => {
+    const value = e.target.value;
+    if(input.type === 'text'){
+        if(nameRegex.test(value) && value.length >= 4){
+            input.style.borderColor = "var(--color-primary)";
+        }
+        else{
+            input.style.borderColor = "var(--color-danger)";
+        }
+    }
+    // Email validation
+    if(input.type === "email"){
+    if(emailRegex.test(value)){
+    input.style.borderColor = "var(--color-primary)";
+    } 
+    else{
+    input.style.borderColor = "var(--color-danger)";
+    }
+    }
+    // Password validation
+    if(input.type === "password"){
+      if(passwordRegex.test(value)){
+          input.style.borderColor = "var(--color-primary)";
+      }
+      else{
+          input.style.borderColor = "var(--color-danger)";
+      }
+      }
+      // Phone validation
+      if(input.type === "tel"){
+        if(phoneRegex.test(value)){
+            input.style.borderColor = "var(--color-primary)";
+        }
+        else{
+            input.style.borderColor = "var(--color-danger)";
+        }
+        }
+})
 }
