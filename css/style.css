@@ -381,7 +381,9 @@ body {
   position: relative;
   width: 100%; }
 
-.show-password, .show-password-login, .show-confirm-password {
+.show-password,
+.show-password-login,
+.show-confirm-password {
   position: absolute;
   top: 50%;
   font-size: 1.5rem;
@@ -390,7 +392,9 @@ body {
   cursor: pointer;
   color: var(--color-grey-dark-1); }
 
-.show-password:hover, .show-password-login:hover, .show-confirm-password:hover {
+.show-password:hover,
+.show-password-login:hover,
+.show-confirm-password:hover {
   color: var(--color-primary-dark); }
 
 .test {
