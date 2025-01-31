@@ -1,3 +1,4 @@
+import { form } from "./form.js";
 import {nameRegex, emailRegex, phoneRegex, passwordRegex } from "./utilities.js";
 
 const tl = gsap.timeline({ defaults: { duration: 0.5, ease: "power3.out" } });
@@ -77,3 +78,14 @@ input.addEventListener("input", (e) => {
         }
 })
 }
+// export function clearEffects(form){
+//     const inputs = document.querySelectorAll('input');
+//     inputs.forEach(input => {
+//       form.addEventListener('click', (e) => {
+//         // if(e.target !== input)
+//         // input.style.borderColor = "var(--color-grey-light-3)";
+//       })
+//       // if(e.target === input)
+//       //   colorize(input);
+//     })
+// }
