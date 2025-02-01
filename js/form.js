@@ -1,5 +1,5 @@
 import { User } from "./user.js";
-import { togglePasswordVisibility } from "./utilities.js";
+import { nameRegex, togglePasswordVisibility } from "./utilities.js";
 import { emailRegex, phoneRegex, passwordRegex } from "./utilities.js";
 import {
   animateFormContainer,
@@ -185,10 +185,13 @@ class Form {
       gender = this.#gender;
       if (this.checkValidationLayerOne()) {
         flagTwo = false;
-        if (this.#username.value.trim().includes(" "))
+        if (
+          this.#username.value.trim().includes(" ") ||
+          !nameRegex.test(this.#username.value.trim())
+        )
           this.#renderMessageError(
             this.#messageSignUp,
-            "Check your Username, Cannot contain spaces"
+            "Your username is not valid, it must not contain spaces and at least 4 characters long"
           );
         else username = this.#username.value.trim().toLowerCase();
         if (!emailRegex.test(this.#email.value.trim()))

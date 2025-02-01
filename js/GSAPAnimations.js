@@ -77,6 +77,15 @@ export function colorize(input) {
       } else {
         input.style.borderColor = "var(--color-danger)";
       }
+      const password = document.getElementById("create-account-password");
+      const confirmPassword = document.getElementById("confirm-password");
+      if (password.value === confirmPassword.value) {
+        password.style.borderColor = "var(--color-primary)";
+        confirmPassword.style.borderColor = "var(--color-primary)";
+      } else {
+        password.style.borderColor = "var(--color-danger)";
+        confirmPassword.style.borderColor = "var(--color-danger)";
+      }
     }
     // Phone validation
     if (input.type === "tel") {
