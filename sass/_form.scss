@@ -37,7 +37,6 @@
   }
   &__input {
     background-color: var(--color-grey-light-3);
-    // background-color: #eee;
     border: none;
     border-bottom: 3px solid transparent;
     padding: 1.2rem 1.5rem;
@@ -46,6 +45,7 @@
     width: 100%;
     font-weight: 500;
     font-family: inherit;
+    transition: all 0.5s ease;
   }
   &__input:focus {
     outline: none;
@@ -73,14 +73,11 @@
     padding: 1.2rem 3rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    transition: transform 80ms ease-in;
+    transition: transform 0.2s ease-in;
     cursor: pointer;
   }
-  &__button:active {
-    transform: scale(0.95);
-  }
   &__button:hover {
-    transform: scale(1.05) translateY(-2px);
+    transform: translateY(-2px);
     background: var(--color-grey-dark-1);
     color: var(--color-grey-light-1);
   }
@@ -94,7 +91,7 @@
     background-color: #fff;
     color: var(--color-grey-dark-1);
     border-color: var(--default-color);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
   }
   &__ghost-button:hover,
   &__ghost-button:active {
@@ -111,6 +108,7 @@
     text-decoration: none;
     margin: 1.5rem 0;
     font-weight: 400;
+    transition: all 0.5s ease;
   }
   &__link:hover,
   &__link:active {
