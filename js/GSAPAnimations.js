@@ -97,14 +97,3 @@ export function colorize(input) {
     }
   });
 }
-// export function clearEffects(form){
-//     const inputs = document.querySelectorAll('input');
-//     inputs.forEach(input => {
-//       form.addEventListener('click', (e) => {
-//         // if(e.target !== input)
-//         // input.style.borderColor = "var(--color-grey-light-3)";
-//       })
-//       // if(e.target === input)
-//       //   colorize(input);
-//     })
-// }

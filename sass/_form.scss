@@ -262,10 +262,14 @@
   box-shadow: 0 1.4rem 2.8rem rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
-  width: 96.8rem;
+  width: 100rem;
   max-width: 100%;
   min-height: 60rem;
   color: var(--color-grey-dark-1);
+  @media screen and (min-width: 93em) {
+    width: 80%;
+    min-height: 90vh;
+  }
   @media screen and (max-width: $bp-small) {
     overflow: visible;
   }
